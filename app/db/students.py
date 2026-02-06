@@ -45,6 +45,15 @@ class StudentResource:
         student = self.collection.find_one({EMAIL: email})
         return serialize_item(student)
 
+    def delete_student(self, email: str):
+        student_record = self.get_student_by_email(email)
+
+        if student_record is None:
+            return None
+
+        result = self.collection.delete_one({EMAIL:email})
+        return result
+    
     def delete_all_students(self):
         self.collection.delete_many({})
 
